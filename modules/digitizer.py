@@ -14,15 +14,16 @@ class BoardInfo(Structure):
         ("FormFactor", c_uint32),
         ("FamilyCode", c_uint32),
         ("ROC_FirmwareRel", c_char*20),
-        ("AMC_FirmwareRel", c_char*20),
+        ("AMC_FirmwareRel", c_char*40),
         ("SerialNumber", c_uint32),
-        ("MezzanineSerNum", c_char), # Will be invalid (unused in 742)
+        ("MezzanineSerNum", (c_char*8)*4),
         ("PCB_Revision", c_uint32),
         ("ADC_NBits", c_uint32),
-        ("SAMCorrectionDataLoaded", c_uint32), # Will be invalid (unused in 742)
+        ("SAMCorrectionDataLoaded", c_uint32),
         ("CommHandle", c_int),
         ("VMEHandle", c_int),
-        ("License", c_char)]
+        ("License", c_char*999), # In the documentation of the library the length of this is `MAX_LICENSE_LENGTH`, who knows its value...
+    ]
 
 # Samples and some stats for one input group (8 channels),
 # relative to one event
