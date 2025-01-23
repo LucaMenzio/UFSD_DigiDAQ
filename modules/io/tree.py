@@ -3,6 +3,7 @@ from array import array
 import os, math
 
 MAX_FILE_SIZE = 500 # GB
+CHANNELS = 32
 
 class TreeFile():
 
@@ -28,13 +29,14 @@ class TreeFile():
         self.tree.Branch("pos", self.pos)
 
         self.channels = []
-        for c in range(16):
+        for c in range(CHANNELS):
             wave = rt.std.vector("double")()
             self.tree.Branch("w{}".format(c), wave)
             self.channels.append(wave)
 
+        # one digitized trigger for each group of 8 channels
         self.triggers = []
-        for t in range(2):
+        for t in range(int(CHANNELS/8.)):
             wave = rt.std.vector("double")()
             self.tree.Branch("trg{}".format(t), wave)
             self.triggers.append(wave)
